@@ -23,6 +23,7 @@ private:
     QTimer *timer;
     Ui::LoginWindow *ui;
     HttpRequest httpRequest;
+    QString dataStr;
 
 
 
@@ -33,6 +34,7 @@ private slots:
     void enableLoginButton();
     void doLogin();
     void collectedData(QByteArray data_);
+    QString returnHttpData();
 };
 
 #endif // LOGINWINDOW_H

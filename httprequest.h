@@ -13,10 +13,12 @@ public:
     void setUrl(QString urlStr);
 
 
+
 private:
     QNetworkAccessManager * nManager = new QNetworkAccessManager(this);
     QNetworkRequest request;
     QUrl url;
+
 
 
 private slots:

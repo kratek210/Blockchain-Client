@@ -18,7 +18,6 @@ void HttpRequest::setUrl(QString urlStr)
 }
 
 
-
 void HttpRequest::readReady(QNetworkReply *reply)
 {
     QByteArray myData;

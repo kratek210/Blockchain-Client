@@ -42,7 +42,7 @@ void LoginWindow::enableLoginButton()
 
 void LoginWindow::doLogin()
 {
-    httpRequest.setUrl("http://nk.pl");
+    httpRequest.setUrl("http://127.0.0.1:3000/merchant/"+ui->walletEdit->text()+"/balance?password="+ui->passEdit->text());
     httpRequest.send();
 
 }
@@ -50,7 +50,14 @@ void LoginWindow::doLogin()
 void LoginWindow::collectedData(QByteArray data_)
 {
 
-    QString dataStr = data_;
-    qDebug() << dataStr;
+    dataStr = data_;
+
+
+
+}
+
+QString LoginWindow::returnHttpData()
+{
+    return dataStr;
 
 }

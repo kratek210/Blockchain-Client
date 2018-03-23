@@ -3,6 +3,7 @@
 
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
+#include <QMessageBox>
 
 class HttpRequest : public QObject
 {
@@ -18,6 +19,8 @@ private:
     QNetworkAccessManager * nManager = new QNetworkAccessManager(this);
     QNetworkRequest request;
     QUrl url;
+    void httpError(QNetworkReply *reply);
+
 
 
 

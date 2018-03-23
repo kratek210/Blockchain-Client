@@ -6,6 +6,8 @@
 #include <QDateTime>
 
 #include "httprequest.h"
+#include "mainwindow.h"
+
 
 namespace Ui {
 class LoginWindow;
@@ -24,17 +26,18 @@ private:
     Ui::LoginWindow *ui;
     HttpRequest httpRequest;
     QString dataStr;
-
-
-
+    void checkLogin();
 
 
 private slots:
     void updateTime();
     void enableLoginButton();
     void doLogin();
-    void collectedData(QByteArray data_);
-    QString returnHttpData();
+    void dataToStr(QByteArray data_);
+
+
+
+
 };
 
 #endif // LOGINWINDOW_H

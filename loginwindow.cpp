@@ -20,7 +20,7 @@ LoginWindow::LoginWindow(QWidget *parent) :
     connect(ui->passEdit,SIGNAL(textChanged(QString)),this,SLOT(enableLoginButton())); //enable login button
 
     connect(ui->loginButton,SIGNAL(clicked(bool)),this,SLOT(doLogin()));
-    connect(&httpRequest,SIGNAL(dataReadReady(QByteArray)),this,SLOT(collectedData(QByteArray)));
+    connect(&httpRequest,SIGNAL(dataReadReady(QByteArray)),this,SLOT(dataToStr(QByteArray)));
 }
 
 LoginWindow::~LoginWindow()
@@ -47,17 +47,22 @@ void LoginWindow::doLogin()
 
 }
 
-void LoginWindow::collectedData(QByteArray data_)
+void LoginWindow::dataToStr(QByteArray data_)
 {
-
     dataStr = data_;
-
-
+    checkLogin();
 
 }
 
-QString LoginWindow::returnHttpData()
+void LoginWindow::checkLogin()
 {
-    return dataStr;
+    if(dataStr.contains("balance",Qt::CaseInsensitive))
+    {
+     MainWindow *mainWindow = new MainWindow(NULL);
+     mainWindow->show();
+     this->close();
+    }
+
 
 }
+

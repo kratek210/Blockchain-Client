@@ -3,5 +3,6 @@
         <file>res/logoSmall.png</file>
         <file>res/refresh-icon.png</file>
         <file>res/shutdown.png</file>
+        <file>res/settings.png</file>
     </qresource>
 </RCC>

@@ -4,6 +4,7 @@
 #include <QDialog>
 #include <QTimer>
 #include <QDateTime>
+#include <QFile>
 
 #include "httprequest.h"
 #include "mainwindow.h"
@@ -26,7 +27,10 @@ private:
     Ui::LoginWindow *ui;
     HttpRequest httpRequest;
     QString dataStr;
+    QFile loginFile;
     void checkLogin();
+    void rememberPass();
+    void loadLogin();
 
 
 private slots:
@@ -34,10 +38,7 @@ private slots:
     void enableLoginButton();
     void doLogin();
     void dataToStr(QByteArray data_);
-
-
-
-
+    void on_settingsButton_clicked();
 };
 
 #endif // LOGINWINDOW_H

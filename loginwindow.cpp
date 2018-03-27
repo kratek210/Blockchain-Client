@@ -62,7 +62,7 @@ void LoginWindow::checkLogin()
     if(dataStr.contains("balance",Qt::CaseInsensitive))
     {
      rememberPass();
-     MainWindow *mainWindow = new MainWindow(NULL);
+     MainWindow *mainWindow = new MainWindow(NULL,ui->walletEdit->text(), ui->passEdit->text());
      mainWindow->show();
      this->close();
     }
@@ -112,7 +112,7 @@ QString LoginWindow::encrypt(QString data)  //very shitty encryption. better tha
     int lenght = pass.size();
     for(int i=0; i<lenght;i++)
     {
-       pass[i] = pass[i]+3;
+       pass[i] = pass[i]+6;
     }
     return QString::fromStdString(pass);
 
@@ -124,7 +124,7 @@ QString LoginWindow::decrypt(QString data)
     int lenght = pass.size();
     for(int i=0; i<lenght;i++)
     {
-       pass[i] = pass[i]-3;
+       pass[i] = pass[i]-6;
     }
     return QString::fromStdString(pass);
 

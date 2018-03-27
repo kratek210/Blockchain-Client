@@ -31,6 +31,8 @@ private:
     void checkLogin();
     void rememberPass();
     void loadLogin();
+    QString encrypt(QString data);
+    QString decrypt(QString data);
 
 
 private slots:

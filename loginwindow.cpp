@@ -3,6 +3,7 @@
 #include "loginwindow.h"
 #include "ui_loginwindow.h"
 
+
 LoginWindow::LoginWindow(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::LoginWindow)
@@ -82,7 +83,7 @@ void LoginWindow::rememberPass()
         else
         {
             QTextStream out(&loginFile);
-            out << ui->walletEdit->text() <<"\n"<< ui->passEdit->text();
+            out << encrypt(ui->walletEdit->text()) <<"\n"<< encrypt(ui->passEdit->text());
             loginFile.flush();
             loginFile.close();
 
@@ -99,10 +100,34 @@ void LoginWindow::loadLogin()
     {
         QTextStream in(&loginFile);
 
-            ui->walletEdit->setText(in.readLine());
-            ui->passEdit->setText(in.readLine());
+            ui->walletEdit->setText(decrypt(in.readLine()));
+            ui->passEdit->setText(decrypt(in.readLine()));
 
     }
+}
+
+QString LoginWindow::encrypt(QString data)  //very shitty encryption. better than plain text :)
+{
+    std::string pass=data.toStdString();
+    int lenght = pass.size();
+    for(int i=0; i<lenght;i++)
+    {
+       pass[i] = pass[i]+3;
+    }
+    return QString::fromStdString(pass);
+
+}
+
+QString LoginWindow::decrypt(QString data)
+{
+    std::string pass=data.toStdString();
+    int lenght = pass.size();
+    for(int i=0; i<lenght;i++)
+    {
+       pass[i] = pass[i]-3;
+    }
+    return QString::fromStdString(pass);
+
 }
 
 

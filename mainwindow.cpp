@@ -7,7 +7,7 @@ MainWindow::MainWindow()
 
 }
 
-MainWindow::MainWindow(QWidget *parent, QString id, QString walletPass) :
+MainWindow::MainWindow(QWidget* parent, QString id, QString walletPass) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {

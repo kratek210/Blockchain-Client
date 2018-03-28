@@ -14,12 +14,12 @@ class MainWindow : public QMainWindow
 
 public:
     explicit MainWindow();
-    explicit MainWindow(QWidget *parent,QString id, QString walletPass);
+    explicit MainWindow(QWidget* parent, QString id, QString walletPass);
     ~MainWindow();
 
 
 private:
-    Ui::MainWindow *ui;
+    Ui::MainWindow* ui;
     QString pass;
     QString walletID;
 };

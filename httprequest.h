@@ -7,7 +7,7 @@
 
 class HttpRequest : public QObject
 {
-   Q_OBJECT
+    Q_OBJECT
 public:
     explicit HttpRequest();
     void send();
@@ -16,16 +16,16 @@ public:
 
 
 private:
-    QNetworkAccessManager * nManager = new QNetworkAccessManager(this);
+    QNetworkAccessManager* nManager = new QNetworkAccessManager(this);
     QNetworkRequest request;
     QUrl url;
-    void httpError(QNetworkReply *reply);
+    void httpError(QNetworkReply* reply);
 
 
 
 
 private slots:
-    void readReady(QNetworkReply *reply);
+    void readReady(QNetworkReply* reply);
 
 
 signals:

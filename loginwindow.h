@@ -19,12 +19,12 @@ class LoginWindow : public QDialog
     Q_OBJECT
 
 public:
-    explicit LoginWindow(QWidget *parent = 0);
+    explicit LoginWindow(QWidget* parent = 0);
     ~LoginWindow();
 
 private:
-    QTimer *timer;
-    Ui::LoginWindow *ui;
+    QTimer* timer;
+    Ui::LoginWindow* ui;
     HttpRequest httpRequest;
     QString dataStr;
     QFile loginFile;

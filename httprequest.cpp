@@ -1,8 +1,8 @@
 #include "httprequest.h"
 
 HttpRequest::HttpRequest()
-{    
-    connect(nManager,SIGNAL(finished(QNetworkReply*)),this,SLOT(readReady(QNetworkReply*)));
+{
+    connect(nManager, SIGNAL(finished(QNetworkReply*)), this, SLOT(readReady(QNetworkReply*)));
 
 }
 
@@ -13,25 +13,26 @@ void HttpRequest::send()
 
 void HttpRequest::setUrl(QString urlStr)
 {
-    url=QUrl(urlStr);
+    url = QUrl(urlStr);
     request.setUrl(url);
 }
 
-void HttpRequest::httpError(QNetworkReply *reply)
+void HttpRequest::httpError(QNetworkReply* reply)
 {
 
-    QMessageBox::warning(NULL,"Error",reply->errorString(),QMessageBox::Ok);
+    QMessageBox::warning(NULL, "Error", reply->errorString(), QMessageBox::Ok);
 }
 
 
-void HttpRequest::readReady(QNetworkReply *reply)
+void HttpRequest::readReady(QNetworkReply* reply)
 {
-    if(reply->error()) httpError(reply);
+    if (reply->error())
+        httpError(reply);
     else
     {
-    QByteArray myData;
-    myData = reply->readAll();
-    emit(dataReadReady(myData));
+        QByteArray myData;
+        myData = reply->readAll();
+        emit(dataReadReady(myData));
     }
 }
 

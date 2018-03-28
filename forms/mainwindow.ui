@@ -17,19 +17,134 @@
    <string notr="true">background-color: rgb(122, 122, 122);
 </string>
   </property>
-  <widget class="QWidget" name="centralwidget"/>
-  <widget class="QStatusBar" name="statusbar"/>
-  <widget class="QMenuBar" name="menuBar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>800</width>
-     <height>21</height>
-    </rect>
-   </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QTabWidget" name="tabWidget">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>801</width>
+      <height>601</height>
+     </rect>
+    </property>
+    <property name="sizePolicy">
+     <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+      <horstretch>0</horstretch>
+      <verstretch>0</verstretch>
+     </sizepolicy>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>0</width>
+      <height>0</height>
+     </size>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>12</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QTabBar::tab
+{
+color: white;
+	background-color: rgb(122, 122, 122);
+	height: 80px;
+	width:160px;
+}
+QTabBar::tab:selected {
+    
+	background-color: #27a9e3;
+	color:white;
+}
+
+QTabWidget::pane
+ {
+	border: none;
+}
+
+#tab
+{
+color: red;
+}</string>
+    </property>
+    <property name="tabShape">
+     <enum>QTabWidget::Rounded</enum>
+    </property>
+    <property name="currentIndex">
+     <number>0</number>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>30</width>
+      <height>30</height>
+     </size>
+    </property>
+    <property name="elideMode">
+     <enum>Qt::ElideLeft</enum>
+    </property>
+    <property name="usesScrollButtons">
+     <bool>false</bool>
+    </property>
+    <widget class="QWidget" name="tab">
+     <property name="minimumSize">
+      <size>
+       <width>80</width>
+       <height>80</height>
+      </size>
+     </property>
+     <attribute name="icon">
+      <iconset resource="../resources.qrc">
+       <normaloff>:/res/home.png</normaloff>:/res/home.png</iconset>
+     </attribute>
+     <attribute name="title">
+      <string>Overview</string>
+     </attribute>
+    </widget>
+    <widget class="QWidget" name="tab_2">
+     <attribute name="icon">
+      <iconset resource="../resources.qrc">
+       <normaloff>:/res/arrow-up.png</normaloff>:/res/arrow-up.png</iconset>
+     </attribute>
+     <attribute name="title">
+      <string>Send</string>
+     </attribute>
+    </widget>
+    <widget class="QWidget" name="tab_3">
+     <attribute name="icon">
+      <iconset resource="../resources.qrc">
+       <normaloff>:/res/arrow-down.png</normaloff>:/res/arrow-down.png</iconset>
+     </attribute>
+     <attribute name="title">
+      <string>Recive</string>
+     </attribute>
+    </widget>
+    <widget class="QWidget" name="tab_4">
+     <attribute name="icon">
+      <iconset resource="../resources.qrc">
+       <normaloff>:/res/list.png</normaloff>:/res/list.png</iconset>
+     </attribute>
+     <attribute name="title">
+      <string>Transactions</string>
+     </attribute>
+    </widget>
+    <widget class="QWidget" name="tab_5">
+     <attribute name="icon">
+      <iconset resource="../resources.qrc">
+       <normaloff>:/res/Question_mark.png</normaloff>:/res/Question_mark.png</iconset>
+     </attribute>
+     <attribute name="title">
+      <string>Help</string>
+     </attribute>
+    </widget>
+   </widget>
   </widget>
  </widget>
- <resources/>
+ <resources>
+  <include location="../resources.qrc"/>
+ </resources>
  <connections/>
 </ui>

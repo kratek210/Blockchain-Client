@@ -12,6 +12,7 @@ MainWindow::MainWindow(QWidget* parent, QString id, QString walletPass) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    setCentralWidget(ui->tabWidget);
     walletID = id;
     pass = walletPass;
     qDebug() << walletID << pass;

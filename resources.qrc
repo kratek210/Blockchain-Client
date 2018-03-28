@@ -4,5 +4,10 @@
         <file>res/refresh-icon.png</file>
         <file>res/shutdown.png</file>
         <file>res/settings.png</file>
+        <file>res/arrow-down.png</file>
+        <file>res/arrow-up.png</file>
+        <file>res/home.png</file>
+        <file>res/list.png</file>
+        <file>res/Question_mark.png</file>
     </qresource>
 </RCC>

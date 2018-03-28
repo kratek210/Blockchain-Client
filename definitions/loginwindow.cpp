@@ -1,6 +1,6 @@
 #define HOST "http://127.0.0.1:3000/merchant/"
 
-#include "loginwindow.h"
+#include "../headers/loginwindow.h"
 #include "ui_loginwindow.h"
 
 

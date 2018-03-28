@@ -25,18 +25,18 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
         main.cpp \
-        loginwindow.cpp \
-    httprequest.cpp \
-    mainwindow.cpp
+        definitions\loginwindow.cpp \
+    definitions\httprequest.cpp \
+    definitions\mainwindow.cpp
 
 HEADERS += \
-        loginwindow.h \
-    httprequest.h \
-    mainwindow.h
+        headers\loginwindow.h \
+    headers\httprequest.h \
+    headers\mainwindow.h
 
 FORMS += \
-        loginwindow.ui \
-    mainwindow.ui
+        forms\loginwindow.ui \
+    forms\mainwindow.ui
 
 RESOURCES += \
     resources.qrc

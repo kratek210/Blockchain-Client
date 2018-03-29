@@ -1,6 +1,8 @@
 #ifndef LOGINWINDOW_H
 #define LOGINWINDOW_H
 
+#define HOST "http://127.0.0.1:3000/merchant/"
+
 #include <QDialog>
 #include <QTimer>
 #include <QDateTime>
@@ -26,9 +28,7 @@ private:
     QTimer* timer;
     Ui::LoginWindow* ui;
     HttpRequest httpRequest;
-    QString dataStr;
     QFile loginFile;
-    void checkLogin();
     void rememberPass();
     void loadLogin();
     QString encrypt(QString data);
@@ -39,8 +39,8 @@ private slots:
     void updateTime();
     void enableLoginButton();
     void doLogin();
-    void dataToStr(QByteArray data_);
     void on_settingsButton_clicked();
+    void checkLogin();
 };
 
 #endif // LOGINWINDOW_H

@@ -1,4 +1,4 @@
-#define HOST "http://127.0.0.1:3000/merchant/"
+
 
 #include "../headers/loginwindow.h"
 #include "ui_loginwindow.h"
@@ -21,7 +21,8 @@ LoginWindow::LoginWindow(QWidget* parent) :
     connect(ui->walletEdit, SIGNAL(textChanged(QString)), this, SLOT(enableLoginButton())); //enable login button
     connect(ui->passEdit, SIGNAL(textChanged(QString)), this, SLOT(enableLoginButton())); //enable login button
     connect(ui->loginButton, SIGNAL(clicked(bool)), this, SLOT(doLogin()));
-    connect(&httpRequest, SIGNAL(dataReadReady(QByteArray)), this, SLOT(dataToStr(QByteArray)));
+    connect(&httpRequest, SIGNAL(dataReadReady(QByteArray)), this, SLOT(checkLogin()));
+
 
     loadLogin();
 }
@@ -49,18 +50,15 @@ void LoginWindow::doLogin()
     httpRequest.setUrl(HOST + ui->walletEdit->text() + "/balance?password=" + ui->passEdit->text());
     httpRequest.send();
 
-}
 
-void LoginWindow::dataToStr(QByteArray data_)
-{
-    dataStr = data_;
-    checkLogin();
+
 
 }
+
 
 void LoginWindow::checkLogin()
 {
-    if (dataStr.contains("balance", Qt::CaseInsensitive))
+    if (httpRequest.getDataStr().contains("balance", Qt::CaseInsensitive))
     {
         rememberPass();
         MainWindow* mainWindow = new MainWindow(NULL, ui->walletEdit->text(), ui->passEdit->text());

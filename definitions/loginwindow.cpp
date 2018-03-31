@@ -22,7 +22,7 @@ LoginWindow::LoginWindow(QWidget* parent) :
     connect(ui->passEdit, SIGNAL(textChanged(QString)), this, SLOT(enableLoginButton())); //enable login button
     connect(ui->loginButton, SIGNAL(clicked(bool)), this, SLOT(doLogin()));
     connect(&httpRequest, SIGNAL(dataReadReady(QByteArray)), this, SLOT(checkLogin()));
-
+    /*-----------------------------------------------------------------------------------------*/
 
     loadLogin();
 }
@@ -39,7 +39,7 @@ void LoginWindow::updateTime()
 
 void LoginWindow::enableLoginButton()
 {
-    if (ui->walletEdit->text().count() > 4 && ui->passEdit->text().count() > 4) //check if forms have more than 4 letters
+    if (ui->walletEdit->text().count() > MIN_SIGNS && ui->passEdit->text().count() > MIN_SIGNS) //check if forms have more than 4 letters
         ui->loginButton->setEnabled(true); //enable button
     else
         ui->loginButton->setEnabled(false); // else disable button
@@ -47,12 +47,10 @@ void LoginWindow::enableLoginButton()
 
 void LoginWindow::doLogin()
 {
-    httpRequest.setUrl(HOST + ui->walletEdit->text() + "/balance?password=" + ui->passEdit->text());
+    walletID = ui->walletEdit->text();
+    pass = ui->passEdit->text();
+    httpRequest.setUrl(CHECK_LOGIN_URL);
     httpRequest.send();
-
-
-
-
 }
 
 
@@ -61,7 +59,7 @@ void LoginWindow::checkLogin()
     if (httpRequest.getDataStr().contains("balance", Qt::CaseInsensitive))
     {
         rememberPass();
-        MainWindow* mainWindow = new MainWindow(NULL, ui->walletEdit->text(), ui->passEdit->text());
+        MainWindow* mainWindow = new MainWindow(NULL, walletID, pass);
         mainWindow->show();
         this->close();
     }
@@ -82,7 +80,7 @@ void LoginWindow::rememberPass()
         else
         {
             QTextStream out(&loginFile);
-            out << encrypt(ui->walletEdit->text()) << "\n" << encrypt(ui->passEdit->text());
+            out << encrypt(walletID) << "\n" << encrypt(pass);
             loginFile.flush();
             loginFile.close();
 
@@ -144,6 +142,6 @@ void LoginWindow::on_settingsButton_clicked()
                                                          "to change port number "
                                                          "of local service if user "
                                                          "starts Blockchain Api server on diffrent "
-                                                         "port"), QMessageBox::Ok);
+                                                         "port. Refreshing period. unit mBTC BTC etc."), QMessageBox::Ok);
 }
 

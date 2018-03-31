@@ -144,7 +144,7 @@ font: bold;
 font-size: 12px;</string>
                    </property>
                    <property name="text">
-                    <string>000000.1 BTC</string>
+                    <string>Fetching wallet balance ...</string>
                    </property>
                   </widget>
                  </item>
@@ -188,6 +188,11 @@ font: bold;</string>
             <property name="title">
              <string>Recent Transaction</string>
             </property>
+            <layout class="QHBoxLayout" name="horizontalLayout_5">
+             <item>
+              <layout class="QVBoxLayout" name="verticalLayout_4"/>
+             </item>
+            </layout>
            </widget>
           </item>
          </layout>

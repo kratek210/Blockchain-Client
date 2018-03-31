@@ -7,10 +7,12 @@ MainWindow::MainWindow(QWidget* parent, QString id, QString walletPass) :
     ui(new Ui::MainWindow)
 {
     //SIGNALS AND SLOT CONNECTING
+
     for (int i = 0; i < OBJECTS_ARRAY_SIZE; i++)        //loop to connect every object from array to same slot
     {
         connect(&request[i], SIGNAL(dataReadReady(QByteArray)), this, SLOT(saveReqData(QByteArray)));
     }
+
     connect(&timer, SIGNAL(timeout()), this, SLOT(update()));
     /*--------------------------------------------------------------------------------------------*/
 
@@ -19,7 +21,7 @@ MainWindow::MainWindow(QWidget* parent, QString id, QString walletPass) :
     walletID = id;
     pass = walletPass;
     timer.start(REFRESHING_PERIOD);
-    request[BALANCE].setUrl(CHECK_BALANCE_URL);
+    request[BALANCE].setUrl(CHECK_WALLET_BALANCE_URL);
     request[BALANCE].send();
 
 
@@ -48,17 +50,25 @@ void MainWindow::saveReqData(QByteArray data_)
 
 void MainWindow::update()
 {
-    updateBalance();
     recentTxs();
-    getWalletAddresses();
+    getWalletAddrAndBalance();
+    updateBalance();
+
+}
+
+
+
+void MainWindow::ballanceChanged(QString addr)
+{
+    qDebug() << addr;
 }
 
 void MainWindow::updateBalance()
 {
 
-    if (request[BALANCE].getUrl().toString() != CHECK_BALANCE_URL)
+    if (request[BALANCE].getUrl().toString() != CHECK_WALLET_BALANCE_URL)
     {
-        request[BALANCE].setUrl(CHECK_BALANCE_URL);
+        request[BALANCE].setUrl(CHECK_WALLET_BALANCE_URL);
     }
     request[BALANCE].send();
     if (jSonData[BALANCE].isEmpty())
@@ -115,8 +125,10 @@ void MainWindow::recentTxs()
     }
 }
 
-void MainWindow::getWalletAddresses()
+void MainWindow::getWalletAddrAndBalance()
 {
+
+    test++;
 
     if (request[ADDR].getUrl().toString() != LIST_WALLET_ADRESSES)
     {
@@ -137,25 +149,37 @@ void MainWindow::getWalletAddresses()
             QJsonObject obj[arr.size()];
 
 
-            if (btcAdresses.length() != arr.size())
+            if (addrBalance.isEmpty())
             {
-                btcAdresses.clear();
                 for (int i = 0; i < arr.size(); i++)
                 {
 
+                    obj[i] = arr.at(i).toObject();
+                    btcLabels << obj[i].value("label").toString();
+                    btcAdresses << obj[i].value("receiveAddress").toString();
+                    addrBalance << obj[i].value("balance").toDouble();
+                    qDebug() << btcLabels[i] << btcAdresses[i] << addrBalance[i] << addrBalance.size() << "test=" << test;
+
+                }
+
+            }
+            else
+            {
+                for (int i = 0; i < arr.size(); i++)
+                {
 
                     obj[i] = arr.at(i).toObject();
-                    btcAdresses << obj[i].value("label").toString() + " " + obj[i].value("receiveAddress").toString();
-                    //qDebug() << btcAdresses[i] << btcAdresses.size();
+                    if (addrBalance[i] != obj[i].value("balance").toDouble())
+                        qDebug() << test;
 
+                    btcLabels.clear();
+                    btcAdresses.clear();
+                    addrBalance.squeeze();
                 }
 
             }
 
         }
-
     }
 }
-
-
 

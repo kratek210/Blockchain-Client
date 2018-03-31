@@ -23,7 +23,9 @@ MainWindow::MainWindow(QWidget* parent, QString id, QString walletPass) :
     timer.start(REFRESHING_PERIOD);
     request[BALANCE].setUrl(CHECK_WALLET_BALANCE_URL);
     request[BALANCE].send();
-
+    btcAdresses << "addr1" << "addr2";
+    btcLabels << "label1" << "label2";
+    addrBalance << 2 << 3;
 
 
 }
@@ -60,7 +62,7 @@ void MainWindow::update()
 
 void MainWindow::ballanceChanged(QString addr)
 {
-    qDebug() << addr;
+    qDebug() << addr << addrBalance << "slot runing";
 }
 
 void MainWindow::updateBalance()
@@ -127,18 +129,17 @@ void MainWindow::recentTxs()
 
 void MainWindow::getWalletAddrAndBalance()
 {
-
-    test++;
-
+    qDebug() << "start";
     if (request[ADDR].getUrl().toString() != LIST_WALLET_ADRESSES)
     {
         request[ADDR].setUrl(LIST_WALLET_ADRESSES);
         request[ADDR].send();
+        qDebug() << "url empty";
     }
     else
     {
         request[ADDR].send();
-
+        qDebug() << "request send";
         if (jSonData[ADDR].isEmpty())
             qDebug() << "wallet adresses json empty";
 
@@ -147,10 +148,11 @@ void MainWindow::getWalletAddrAndBalance()
             QJsonArray arr;
             arr = jSonData[ADDR].array();
             QJsonObject obj[arr.size()];
-
+            qDebug() << "json reading";
 
             if (addrBalance.isEmpty())
             {
+                qDebug() << "addres balance empty true";
                 for (int i = 0; i < arr.size(); i++)
                 {
 
@@ -158,28 +160,38 @@ void MainWindow::getWalletAddrAndBalance()
                     btcLabels << obj[i].value("label").toString();
                     btcAdresses << obj[i].value("receiveAddress").toString();
                     addrBalance << obj[i].value("balance").toDouble();
-                    qDebug() << btcLabels[i] << btcAdresses[i] << addrBalance[i] << addrBalance.size() << "test=" << test;
+                    qDebug() << btcLabels[i] << btcAdresses[i] << addrBalance[i] << addrBalance.size();
 
                 }
 
             }
+
             else
             {
-                for (int i = 0; i < arr.size(); i++)
+                qDebug() << "adress balance empty false" << arr.size() << "adres balance: " << addrBalance;
+                for (int j = arr.size() - 1; j >= 0 ; j--)
                 {
+                    qDebug() << "loop erasing vector" << j;
+                    obj[j] = arr.at(j).toObject();
+                    if (addrBalance[j] != obj[j].value("balance").toDouble())
+                    {
+                        emit ballanceChanged(btcAdresses[j]);
+                        qDebug() << "signal emiting and clearing";
+                        addrBalance.removeAt(j);
+                        btcAdresses.removeAt(j);
+                        btcLabels.removeAt(j);
+                    }
 
-                    obj[i] = arr.at(i).toObject();
-                    if (addrBalance[i] != obj[i].value("balance").toDouble())
-                        qDebug() << test;
 
-                    btcLabels.clear();
-                    btcAdresses.clear();
-                    addrBalance.squeeze();
                 }
 
             }
 
+
         }
+
+
     }
+
 }
 

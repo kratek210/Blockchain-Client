@@ -44,25 +44,43 @@ void Wallet::getAddressList(QJsonDocument doc)
     QJsonArray arr;
     arr = doc.array();
 
-    if (arr.size() != addrList.size() || addrList.isEmpty())
+    if (arr.size() != addrList.size() && !addrList.isEmpty())
     {
-        addrList.clear();
-        for (int i = 0; i < arr.size() - 1; i++)
+
+        for (int i = 0; i < addrList.size() + 1; i++)
+        {
+            QJsonObject obj = arr.at(i).toObject();
+
+            if (addrList.last()->getAddress() != obj.value("receiveAddress").toString())
+            {
+                for (int j = addrList.size() - 1; j > -1; j--)
+                {
+                    delete addrList.last();
+                    addrList.removeLast();
+                }
+            }
+        }
+        for (int k = 0; k < arr.size(); k++)
+        {
+            QJsonObject obj = arr.at(k).toObject();
+            addrList << new BtcAddress(obj.value("receiveAddress").toString());
+            addrList.at(k)->setAddrLabel(obj.value("label").toString());
+
+            qDebug() << addrList.at(k)->getAddrLabel() << addrList.at(k)->getAddress() << addrList.at(k)->getBalance();
+            qDebug() << addrList.size() << "from not empty or changed";
+        }
+    }
+
+    if (addrList.isEmpty())
+    {
+        for (int i = 0; i < arr.size(); i++)
         {
             QJsonObject obj = arr.at(i).toObject();
             addrList << new BtcAddress(obj.value("receiveAddress").toString());
             addrList.at(i)->setAddrLabel(obj.value("label").toString());
             qDebug() << addrList.at(i)->getAddrLabel() << addrList.at(i)->getAddress() << addrList.at(i)->getBalance();
-            qDebug() << addrList.size();
-        }
-    }
-    else
-    {
-        for (int i = 0; i < addrList.size() - 1; i++)    //check is address under index is difrent from reply
-        {
-            QJsonObject obj = arr.at(i).toObject();
-            if (obj.value("receiveAddress").toString() != addrList.at(i)->getAddress())
-                addrList.clear();
+            qDebug() << addrList.size() << "from empty";
+
         }
     }
 }

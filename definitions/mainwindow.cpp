@@ -6,11 +6,12 @@ MainWindow::MainWindow(QWidget* parent, QString id, QString walletPass) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
+    ui->setupUi(this);
+    setCentralWidget(ui->tabWidget);
     wallet = new Wallet(this, id, walletPass);
     connect(&timer, SIGNAL(timeout()), wallet, SLOT(update()));
     connect(&timer, SIGNAL(timeout()), this, SLOT(updateBalanceLabel()));
     timer.start(REFRESHING_PERIOD);
-    ui->setupUi(this);
     updateBalanceLabel();
 }
 

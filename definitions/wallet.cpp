@@ -39,10 +39,10 @@ void Wallet::updateBalance(double txVal)
         balance += txVal;
 }
 
-void Wallet::getAddressList(QJsonDocument doc)
+void Wallet::getAddressList(QJsonDocument* doc)
 {
     QJsonArray arr;
-    arr = doc.array();
+    arr = doc->array();
 
     if (arr.size() != addrList.size() && !addrList.isEmpty())
     {
@@ -101,5 +101,5 @@ void Wallet::saveHttpReply(QByteArray data)
         QMessageBox::warning(NULL, tr("JSON Error"),
                              err.errorString(), QMessageBox::Ok);
     else
-        getAddressList(jSonDocument);
+        getAddressList(&jSonDocument);
 }

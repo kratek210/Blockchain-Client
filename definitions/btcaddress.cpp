@@ -4,14 +4,18 @@
 
 BtcAddress::BtcAddress(QString Btcaddres)
 {
-
-    connect(&request, SIGNAL(dataReadReady(QByteArray)), this, SLOT(saveHttpReply(QByteArray)));
+    request = new HttpRequest;
+    connect(request, SIGNAL(dataReadReady(QByteArray)), this, SLOT(saveHttpReply(QByteArray)));
 
     addr = Btcaddres;
-    request.setUrl(CHECK_ADDRESS_BALANCE_URL);
-    request.send();
+    request->setUrl(CHECK_ADDRESS_BALANCE_URL);
+    request->send();
     tempBalance = 0;
     balance = 0;
+}
+
+BtcAddress::~BtcAddress()
+{
 }
 
 QString BtcAddress::getAddress() const
@@ -31,7 +35,7 @@ QString BtcAddress::getAddrLabel() const
 
 void BtcAddress::update()
 {
-    request.send();
+    request->send();
 }
 
 void BtcAddress::setAddrLabel(QString label)

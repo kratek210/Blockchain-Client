@@ -18,7 +18,7 @@ public:
     QUrl getUrl() const;
 
 private:
-    QNetworkAccessManager* nManager = new QNetworkAccessManager(this);
+    QNetworkAccessManager* nManager;
     QNetworkRequest request;
     QUrl url;
     QString dataStr;

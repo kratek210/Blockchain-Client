@@ -10,7 +10,7 @@
 #include "wallet.h"
 
 
-const int   REFRESHING_PERIOD = 2000;               //updating balance  in ms
+const int   REFRESHING_PERIOD = 15000;               //updating balance  in ms
 const int   SATOSHI_TO_BTC_RATIO = 100000000;
 
 namespace Ui {

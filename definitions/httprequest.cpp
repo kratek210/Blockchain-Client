@@ -2,6 +2,7 @@
 
 HttpRequest::HttpRequest()
 {
+    nManager = new QNetworkAccessManager;
     connect(nManager, SIGNAL(finished(QNetworkReply*)), this, SLOT(readReady(QNetworkReply*)));
     connect(this, SIGNAL(dataReadReady(QByteArray)), this, SLOT(setDataStr(QByteArray)));
 
@@ -61,6 +62,7 @@ void HttpRequest::readReady(QNetworkReply* reply)
         dataArray = reply->readAll();
         setDataStr(dataArray);
         emit(dataReadReady(dataArray));
+
     }
 }
 

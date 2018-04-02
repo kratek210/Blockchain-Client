@@ -29,7 +29,7 @@ private:
     QString pass;
     QList <BtcAddress*> addrList;       //holds btc addresses
     void updateBalance(double txVal);   //update ballance
-    void getAddressList(QJsonDocument doc);  //save btcaddress in btcaddr list
+    void getAddressList(QJsonDocument* doc);  //save btcaddress in btcaddr list
 
 
 private slots:

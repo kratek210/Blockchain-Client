@@ -26,12 +26,16 @@ SOURCES += \
         main.cpp \
         definitions\loginwindow.cpp \
     definitions\httprequest.cpp \
-    definitions\mainwindow.cpp
+    definitions\mainwindow.cpp \
+    definitions/wallet.cpp \
+    definitions/btcaddress.cpp
 
 HEADERS += \
         headers\loginwindow.h \
     headers\httprequest.h \
-    headers\mainwindow.h
+    headers\mainwindow.h \
+    headers/wallet.h \
+    headers/btcaddress.h
 
 FORMS += \
         forms\loginwindow.ui \
@@ -39,6 +43,7 @@ FORMS += \
 
 RESOURCES += \
     resources.qrc
+
 
 
 

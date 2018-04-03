@@ -32,6 +32,7 @@ private:
     QString walletID;                                               //Blockchain wallet id
     QTimer timer;                                                   //to update data
     Wallet* wallet;
+
 private slots:
     void updateBalanceLabel();                                      //to update balance label;
 

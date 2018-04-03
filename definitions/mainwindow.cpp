@@ -9,10 +9,11 @@ MainWindow::MainWindow(QWidget* parent, QString id, QString walletPass) :
     ui->setupUi(this);
     setCentralWidget(ui->tabWidget);
     wallet = new Wallet(this, id, walletPass);
-    connect(&timer, SIGNAL(timeout()), wallet, SLOT(update()));
-    connect(&timer, SIGNAL(timeout()), this, SLOT(updateBalanceLabel()));
     timer.start(REFRESHING_PERIOD);
     updateBalanceLabel();
+    connect(&timer, SIGNAL(timeout()), wallet, SLOT(update()));
+    connect(&timer, SIGNAL(timeout()), this, SLOT(updateBalanceLabel()));
+
 }
 
 MainWindow::~MainWindow()

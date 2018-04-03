@@ -8,6 +8,8 @@
 #include <QString>
 #include <QJsonDocument>
 #include <QJsonArray>
+#include <QSystemTrayIcon>
+
 #include <QJsonValue>
 #include "btcaddress.h"
 
@@ -27,6 +29,7 @@ private:
     QJsonDocument jSonDocument;         //holds JSON reply from httpRequest
     QString walletId;
     QString pass;
+    QSystemTrayIcon newTxNotify;        //to show notify with new transaction
     QList <BtcAddress*> addrList;       //holds btc addresses
     void updateBalance(double txVal);   //update ballance
     void getAddressList(QJsonDocument* doc);  //save btcaddress in btcaddr list

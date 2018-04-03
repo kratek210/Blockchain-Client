@@ -9,5 +9,6 @@
         <file>res/home.png</file>
         <file>res/list.png</file>
         <file>res/Question_mark.png</file>
+        <file>res/btcicon.png</file>
     </qresource>
 </RCC>

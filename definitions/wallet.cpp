@@ -10,12 +10,15 @@ Wallet::Wallet(QObject* parent, QString login, QString password) : QObject(paren
     pass = password;
     httpRequest.setUrl(CHECK_WALLET);
     httpRequest.send();
+    newTxNotify.setContextMenu(NULL);
 
 }
 
 double Wallet::getBalance()
 {
+
     return balance;
+
 }
 
 
@@ -43,6 +46,7 @@ void Wallet::getAddressList(QJsonDocument* doc)
 {
     QJsonArray arr;
     arr = doc->array();
+
 
     if (arr.size() != addrList.size() && !addrList.isEmpty())
     {
@@ -90,6 +94,11 @@ void Wallet::notify(QString btcAddress, double balance, double oldBalance)
 {
     double diffrence = balance - oldBalance;
     updateBalance(diffrence);
+    newTxNotify.show();
+    newTxNotify.showMessage(tr("New Transaction"), tr("New transaction on address: ") +
+                            btcAddress + tr(" ammount: ") +
+                            QString::number(diffrence, 'f', 8), QSystemTrayIcon::Information, 5000);
+    newTxNotify.hide();
 
 }
 

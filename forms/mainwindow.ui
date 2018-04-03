@@ -11,7 +11,11 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Blockchain.info Qt Client</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="../resources.qrc">
+    <normaloff>:/res/btcicon.png</normaloff>:/res/btcicon.png</iconset>
   </property>
   <property name="styleSheet">
    <string notr="true">background-color: rgb(122, 122, 122);

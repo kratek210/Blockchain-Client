@@ -4,6 +4,7 @@
 Wallet::Wallet(QObject* parent, QString login, QString password) : QObject(parent)
 {
     connect(&httpRequest, SIGNAL(dataReadReady(QByteArray)), this, SLOT(saveHttpReply(QByteArray)));
+    connect(&txRequest, SIGNAL(dataReadReady(QByteArray)), this, SLOT(saveTxList(QByteArray)));
 
     balance = 0;       //to avoid some crazy numbers from memory
     walletId = login;
@@ -11,6 +12,10 @@ Wallet::Wallet(QObject* parent, QString login, QString password) : QObject(paren
     httpRequest.setUrl(CHECK_WALLET);
     httpRequest.send();
     newTxNotify.setContextMenu(NULL);
+    getTx();
+
+
+
 
 }
 
@@ -22,8 +27,41 @@ double Wallet::getBalance()
 }
 
 
+void Wallet::getTx()
+{
+    QString addresses;
+    for (int i = 0; i < addrList.size(); i++)
+    {
+        //addresses += addrList.at(i)->getAddress() + "|" ;
+    }
+    txRequest.setUrl(TX_LIST_URL);
+    txRequest.send();
+
+
+}
+
+
+QStringList Wallet::getAddressList()
+{
+    QStringList strList;
+    strList.clear();
+    if (!addrList.isEmpty())
+    {
+        for (int i = 0; i < addrList.size(); i++)
+        {
+            strList << addrList.at(i)->getAddrLabel() + "  " + addrList.at(i)->getAddress()
+                    + " " + QString::number(addrList.at(i)->getBalance() / SATOSHI_TO_BTC_RATIO, 'f', 6) + " BTC";
+        }
+
+    }
+    return strList;
+}
+
+
 void Wallet::update()
 {
+    if (httpRequest.getUrl() != QUrl(CHECK_WALLET).toString())
+        httpRequest.setUrl(CHECK_WALLET);
     httpRequest.send();
     if (!addrList.isEmpty())
     {
@@ -32,6 +70,7 @@ void Wallet::update()
             addrList.at(i)->update();
         }
     }
+    getTx();
 }
 
 void Wallet::updateBalance(double txVal)
@@ -42,51 +81,49 @@ void Wallet::updateBalance(double txVal)
         balance += txVal;
 }
 
-void Wallet::getAddressList(QJsonDocument* doc)
+void Wallet::setAddressList(QJsonDocument* doc)
 {
     QJsonArray arr;
     arr = doc->array();
-
-
-    if (arr.size() != addrList.size() && !addrList.isEmpty())
-    {
-
-        for (int i = 0; i < addrList.size() + 1; i++)
-        {
-            QJsonObject obj = arr.at(i).toObject();
-
-            if (addrList.last()->getAddress() != obj.value("receiveAddress").toString())
-            {
-                for (int j = addrList.size() - 1; j > -1; j--)
-                {
-                    delete addrList.last();
-                    addrList.removeLast();
-                }
-            }
-        }
-        for (int k = 0; k < arr.size(); k++)
-        {
-            QJsonObject obj = arr.at(k).toObject();
-            addrList << new BtcAddress(obj.value("receiveAddress").toString());
-            addrList.at(k)->setAddrLabel(obj.value("label").toString());
-
-            qDebug() << addrList.at(k)->getAddrLabel() << addrList.at(k)->getAddress() << addrList.at(k)->getBalance();
-            qDebug() << addrList.size() << "from not empty or changed";
-        }
-    }
-
     if (addrList.isEmpty())
     {
+        QJsonObject obj;
         for (int i = 0; i < arr.size(); i++)
         {
-            QJsonObject obj = arr.at(i).toObject();
+            obj = arr.at(i).toObject();
             addrList << new BtcAddress(obj.value("receiveAddress").toString());
             addrList.at(i)->setAddrLabel(obj.value("label").toString());
-            qDebug() << addrList.at(i)->getAddrLabel() << addrList.at(i)->getAddress() << addrList.at(i)->getBalance();
-            qDebug() << addrList.size() << "from empty";
 
         }
     }
+    else
+    {
+        QJsonObject obj;
+        QStringList replyAdrList;
+        QStringList localAddrList;
+
+        for (int i = 0; i < arr.size(); i++)
+        {
+            obj = arr.at(i).toObject();
+            replyAdrList << obj.value("receiveAddress").toString();
+        }
+        for (int i = 0; i < addrList.size(); i++)
+        {
+            localAddrList << addrList.at(i)->getAddress();
+        }
+        if (replyAdrList != localAddrList)
+            addrList.clear();
+        else {
+            emit listUpdate(getAddressList(), balance);
+        }
+
+
+
+
+
+    }
+
+
 }
 
 
@@ -110,5 +147,14 @@ void Wallet::saveHttpReply(QByteArray data)
         QMessageBox::warning(NULL, tr("JSON Error"),
                              err.errorString(), QMessageBox::Ok);
     else
-        getAddressList(&jSonDocument);
+        setAddressList(&jSonDocument);
+
+}
+
+void Wallet::saveTxList(QByteArray data)
+{
+
+    emit txListReady(data);
+
+
 }

@@ -20,6 +20,7 @@ BtcAddress::~BtcAddress()
 
 QString BtcAddress::getAddress() const
 {
+
     return addr;
 }
 

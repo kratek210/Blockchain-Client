@@ -28,14 +28,16 @@ SOURCES += \
     definitions\httprequest.cpp \
     definitions\mainwindow.cpp \
     definitions/wallet.cpp \
-    definitions/btcaddress.cpp
+    definitions/btcaddress.cpp \
+    definitions/qjsonmodel.cpp
 
 HEADERS += \
         headers\loginwindow.h \
     headers\httprequest.h \
     headers\mainwindow.h \
     headers/wallet.h \
-    headers/btcaddress.h
+    headers/btcaddress.h \
+    headers/qjsonmodel.h
 
 FORMS += \
         forms\loginwindow.ui \
@@ -43,6 +45,8 @@ FORMS += \
 
 RESOURCES += \
     resources.qrc
+
+win32:RC_ICONS += res/btcico.ico
 
 
 

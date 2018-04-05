@@ -7,11 +7,12 @@
 
 #include <QMainWindow>
 #include <QTimer>
+#include <QClipboard>
+
 #include "wallet.h"
+#include "qjsonmodel.h"
 
-
-const int   REFRESHING_PERIOD = 15000;               //updating balance  in ms
-const int   SATOSHI_TO_BTC_RATIO = 100000000;
+const int   REFRESHING_PERIOD = 25000;               //updating balance  in ms
 
 namespace Ui {
 class MainWindow;
@@ -34,13 +35,9 @@ private:
     Wallet* wallet;
 
 private slots:
-    void updateBalanceLabel();                                      //to update balance label;
-
-
-signals:
-
-
-
+    void updateComboBoxList(QStringList AddrList, double wBalance); //to updateBalance label and combobox
+    void updateTx(QByteArray array);
+    void on_pushButton_clicked();
 };
 
 #endif // MAINWINDOW_H

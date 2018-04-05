@@ -19,11 +19,12 @@
   </property>
   <property name="styleSheet">
    <string notr="true">#LoginWindow{
-background-color: rgb(122, 122, 122);
+background-color: rgb(35, 35, 35);
+
 
 }
 #topPanel_2{
-background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(122, 122, 122, 100), stop:1 rgba(171, 171, 171, 100));}
+background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(35, 35, 35, 100), stop:1 rgba(70, 71, 71, 150));}
 
 QLabel { color: white; }
 QLineEdit { border-radius: 3px; }
@@ -36,12 +37,16 @@ QPushButton
   border-radius: 3px;
 }
 
-QPushButton:hover { background-color: #66c011; }
+QPushButton:hover {background-color: rgb(255, 85, 0); }
+
 
 #loginForm
 {
+
   background: rgba(0, 0, 0, 80);
   border-radius: 8px;
+
+ 
 }</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
@@ -220,7 +225,9 @@ QPushButton:hover { background-color: #66c011; }
         </size>
        </property>
        <property name="styleSheet">
-        <string notr="true">border: 1px solid;</string>
+        <string notr="true">border: 1px solid;
+
+</string>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout_2">
         <property name="leftMargin">
@@ -244,6 +251,9 @@ QPushButton:hover { background-color: #66c011; }
               <width>0</width>
               <height>25</height>
              </size>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">border: 1px solid black;</string>
             </property>
             <property name="text">
              <string>Wallet ID:</string>
@@ -271,6 +281,9 @@ QPushButton:hover { background-color: #66c011; }
               <width>0</width>
               <height>25</height>
              </size>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">border: 1px solid black;</string>
             </property>
             <property name="text">
              <string>Password:</string>
@@ -329,6 +342,9 @@ color: white;</string>
             <width>0</width>
             <height>25</height>
            </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">border: 1px solid black;</string>
           </property>
           <property name="text">
            <string>Login</string>

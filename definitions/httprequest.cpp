@@ -30,7 +30,6 @@ void HttpRequest::setUrl(QString urlStr)
 
 void HttpRequest::httpError(QNetworkReply* reply) const
 {
-
     QMessageBox::warning(NULL, "Error", reply->errorString(), QMessageBox::Ok);
 }
 

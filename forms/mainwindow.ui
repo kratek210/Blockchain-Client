@@ -2,6 +2,9 @@
 <ui version="4.0">
  <class>MainWindow</class>
  <widget class="QMainWindow" name="MainWindow">
+  <property name="windowModality">
+   <enum>Qt::NonModal</enum>
+  </property>
   <property name="enabled">
    <bool>true</bool>
   </property>
@@ -9,7 +12,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>856</width>
+    <width>865</width>
     <height>565</height>
    </rect>
   </property>
@@ -27,7 +30,7 @@
   </property>
   <property name="maximumSize">
    <size>
-    <width>856</width>
+    <width>865</width>
     <height>565</height>
    </size>
   </property>
@@ -187,7 +190,7 @@ font: bold;}
        <enum>QTabWidget::Rounded</enum>
       </property>
       <property name="currentIndex">
-       <number>2</number>
+       <number>0</number>
       </property>
       <property name="iconSize">
        <size>
@@ -340,14 +343,21 @@ font: bold;</string>
              <property name="leftMargin">
               <number>8</number>
              </property>
+             <property name="topMargin">
+              <number>15</number>
+             </property>
              <property name="rightMargin">
               <number>9</number>
              </property>
              <property name="bottomMargin">
-              <number>226</number>
+              <number>9</number>
              </property>
              <item>
-              <layout class="QVBoxLayout" name="verticalLayout_4"/>
+              <layout class="QVBoxLayout" name="lastTxLayout">
+               <property name="spacing">
+                <number>5</number>
+               </property>
+              </layout>
              </item>
             </layout>
            </widget>

@@ -10,5 +10,7 @@
         <file>res/list.png</file>
         <file>res/Question_mark.png</file>
         <file>res/btcicon.png</file>
+        <file>res/arrowupgreen.png</file>
+        <file>res/red-down-arrow-hi.png</file>
     </qresource>
 </RCC>

@@ -2,6 +2,7 @@
 #define WALLET_H
 
 #define CHECK_WALLET "http://127.0.0.1:3000/merchant/"+walletId+"/accounts?password="+pass
+//#define TX_LIST_URL "https://blockchain.info/pl/multiaddr?active="
 #define TX_LIST_URL "https://blockchain.info/pl/multiaddr?active=1Kr6QSydW9bFQG1mXiPNNu6WpJGmUa9i1g"
 
 #include "httprequest.h"
@@ -25,7 +26,9 @@ class Wallet : public QObject
 public:
     explicit Wallet(QObject* parent, QString login, QString password);
     double getBalance();                            //returns wallet (from all addreses) ballance in satoshi
-    QList <BtcAddress*> addrList;       //holds btc addresses
+    QStringList getAddressList();                    //return addresses and balances string list
+    QVector <BtcAddress*> addrList;                   //holds btc addresses
+
 private:
 
     double balance;                     //holds wallet (All addresses) balance
@@ -37,7 +40,6 @@ private:
     QSystemTrayIcon newTxNotify;        //to show notify with new transaction
     void updateBalance(double txVal);   //update ballance
     void setAddressList(QJsonDocument* doc);  //save btcaddress in btcaddr list
-    QStringList getAddressList();             //return addresses and balances string list
     void getTx();
 
 private slots:

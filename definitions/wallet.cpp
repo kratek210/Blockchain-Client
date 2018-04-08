@@ -34,8 +34,7 @@ void Wallet::getTx()
     {
         addresses += addrList.at(i)->getAddress() + "|";
     }
-    //txRequest.setUrl(TX_LIST_URL + addresses);
-    txRequest.setUrl(TX_LIST_URL);
+    txRequest.setUrl(TX_LIST_URL);// + addresses);
     txRequest.send();
 
 

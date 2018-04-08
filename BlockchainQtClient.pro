@@ -29,7 +29,7 @@ SOURCES += \
     definitions\mainwindow.cpp \
     definitions/wallet.cpp \
     definitions/btcaddress.cpp \
-    definitions/qjsonmodel.cpp
+    definitions/txmodel.cpp
 
 HEADERS += \
         headers\loginwindow.h \
@@ -37,7 +37,7 @@ HEADERS += \
     headers\mainwindow.h \
     headers/wallet.h \
     headers/btcaddress.h \
-    headers/qjsonmodel.h
+    headers/txmodel.h
 
 FORMS += \
         forms\loginwindow.ui \

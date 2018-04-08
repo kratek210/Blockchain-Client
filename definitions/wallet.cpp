@@ -32,8 +32,9 @@ void Wallet::getTx()
     QString addresses;
     for (int i = 0; i < addrList.size(); i++)
     {
-        //addresses += addrList.at(i)->getAddress() + "|" ;
+        addresses += addrList.at(i)->getAddress() + "|";
     }
+    //txRequest.setUrl(TX_LIST_URL + addresses);
     txRequest.setUrl(TX_LIST_URL);
     txRequest.send();
 

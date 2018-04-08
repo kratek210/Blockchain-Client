@@ -2,7 +2,7 @@
 #define WALLET_H
 
 #define CHECK_WALLET "http://127.0.0.1:3000/merchant/"+walletId+"/accounts?password="+pass
-#define TX_LIST_URL "https://blockchain.info/pl/multiaddr?active=1KwVzCqHaHs4ZUGKrTBTpL6DomFnpDvthT"
+#define TX_LIST_URL "https://blockchain.info/pl/multiaddr?active=1Kr6QSydW9bFQG1mXiPNNu6WpJGmUa9i1g"
 
 #include "httprequest.h"
 #include "btcaddress.h"

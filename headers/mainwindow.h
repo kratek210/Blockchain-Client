@@ -9,8 +9,9 @@
 #include <QTimer>
 #include <QClipboard>
 
+
 #include "wallet.h"
-#include "qjsonmodel.h"
+#include "txmodel.h"
 
 const int   REFRESHING_PERIOD = 25000;               //updating balance  in ms
 

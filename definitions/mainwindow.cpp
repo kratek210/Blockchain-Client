@@ -39,10 +39,20 @@ void MainWindow::updateComboBoxList(QStringList AddrList, double wBalance)
 
 void MainWindow::updateTx(QByteArray array)
 {
-    QJsonModel* model = new QJsonModel;
-    ui->treeView->setModel(model);
+    ui->tableView->setColumnWidth(0, 110);
+    ui->tableView->setColumnWidth(1, 160);
+    ui->tableView->setColumnWidth(2, 400);
+    //ui->tableView->setColumnWidth(3, 125);
+    ui->tableView->horizontalHeader()->setStretchLastSection(true);
+    ui->tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Fixed);
+    ui->tableView->verticalHeader()->setSectionResizeMode(QHeaderView::Fixed);
+    ui->tableView->setSelectionMode(QAbstractItemView::NoSelection);
 
-    model->loadJson(array);
+    TxModel* model = new TxModel();
+    model->load(array);
+    ui->tableView->setModel(model);
+
+
 
 
 }

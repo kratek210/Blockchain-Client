@@ -168,7 +168,14 @@ background-color: rgb(129, 129, 129);
 {
 border: 1px solid white;
 color: white;
-border-radius:10px;
+background-color: rgba(0, 0, 0, 80);
+font-size: 12px;
+font: bold;}
+
+QTableView
+{
+border: 1px solid white;
+color: white;
 background-color: rgba(0, 0, 0, 80);
 font-size: 12px;
 font: bold;}
@@ -180,7 +187,7 @@ font: bold;}
        <enum>QTabWidget::Rounded</enum>
       </property>
       <property name="currentIndex">
-       <number>3</number>
+       <number>2</number>
       </property>
       <property name="iconSize">
        <size>
@@ -391,10 +398,7 @@ font: bold;</string>
                 </size>
                </property>
                <property name="styleSheet">
-                <string notr="true">
-
-
-</string>
+                <string notr="true"/>
                </property>
                <property name="title">
                 <string>Send:</string>
@@ -781,17 +785,7 @@ QPushButton::hover {background-color: rgb(255, 85, 0); }</string>
        </attribute>
        <layout class="QVBoxLayout" name="verticalLayout_7">
         <item>
-         <widget class="QTreeView" name="treeView">
-          <property name="styleSheet">
-           <string notr="true">background-color : rgba(0,0,0,80);
-color: rgb(255, 120, 2);
-alternate-background-color: rgb(0, 255, 0);
-
-QTreeView::branch
-{color:red;}
-</string>
-          </property>
-         </widget>
+         <widget class="QTableView" name="tableView"/>
         </item>
        </layout>
       </widget>
@@ -810,8 +804,7 @@ QTreeView::branch
         <item>
          <widget class="QTextBrowser" name="textBrowser">
           <property name="styleSheet">
-           <string notr="true">
-</string>
+           <string notr="true"/>
           </property>
           <property name="frameShape">
            <enum>QFrame::NoFrame</enum>

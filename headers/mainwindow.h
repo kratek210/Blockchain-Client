@@ -12,7 +12,7 @@
 #include "wallet.h"
 #include "txmodel.h"
 
-const int   REFRESHING_PERIOD = 5000;               //updating balance  in ms
+const int   REFRESHING_PERIOD = 30000;               //updating balance  in ms
 
 namespace Ui {
 class MainWindow;
@@ -40,7 +40,9 @@ private slots:
     void updateComboBoxList(QStringList AddrList, double wBalance); //to updateBalance label and combobox
     void updateTx(QByteArray array);
     void on_pushButton_clicked();
+    void enableSendButton();
 
+    void on_btcSendButton_clicked();
 };
 
 #endif // MAINWINDOW_H

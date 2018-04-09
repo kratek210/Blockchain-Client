@@ -57,6 +57,14 @@ QStringList Wallet::getAddressList()
     return strList;
 }
 
+void Wallet::sendBtc(QString reciverAddr, double ammount)
+{
+
+    sendBtcRequest.setUrl(SEND_BTC_URL + QString::number(ammount * SATOSHI_TO_BTC_RATIO));
+    sendBtcRequest.send();
+    qDebug() << sendBtcRequest.getUrl().toString();
+}
+
 
 void Wallet::update()
 {

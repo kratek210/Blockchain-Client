@@ -190,7 +190,7 @@ font: bold;}
        <enum>QTabWidget::Rounded</enum>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <property name="iconSize">
        <size>
@@ -331,7 +331,16 @@ color: white;
 border-radius:10px;
 background-color: rgba(0, 0, 0, 80);
 font-size: 12px;
-font: bold;</string>
+font: bold;
+
+QLabel
+{
+border: none;
+color: white;
+border-radius:10px;
+background-color: rgba(0, 0, 0, 80);
+font-size: 12px;
+}</string>
             </property>
             <property name="title">
              <string>Recent Transaction</string>
@@ -463,7 +472,7 @@ border: none;
                     </widget>
                    </item>
                    <item>
-                    <widget class="QLineEdit" name="lineEdit">
+                    <widget class="QLineEdit" name="sendAddrEdit">
                      <property name="minimumSize">
                       <size>
                        <width>0</width>
@@ -496,29 +505,6 @@ border-radius: 3px;
                    <property name="bottomMargin">
                     <number>1</number>
                    </property>
-                   <item>
-                    <widget class="QLabel" name="label_3">
-                     <property name="minimumSize">
-                      <size>
-                       <width>60</width>
-                       <height>25</height>
-                      </size>
-                     </property>
-                     <property name="text">
-                      <string>Label:</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QLineEdit" name="lineEdit_2">
-                     <property name="minimumSize">
-                      <size>
-                       <width>0</width>
-                       <height>25</height>
-                      </size>
-                     </property>
-                    </widget>
-                   </item>
                   </layout>
                  </widget>
                 </item>
@@ -583,6 +569,9 @@ border: none;</string>
                      </property>
                      <property name="minimum">
                       <double>0.000000000000000</double>
+                     </property>
+                     <property name="maximum">
+                      <double>100000.000000000000000</double>
                      </property>
                      <property name="singleStep">
                       <double>0.000010000000000</double>

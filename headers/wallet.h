@@ -4,7 +4,7 @@
 #define CHECK_WALLET "http://127.0.0.1:3000/merchant/"+walletId+"/accounts?password="+pass
 //#define TX_LIST_URL "https://blockchain.info/pl/multiaddr?active="
 #define TX_LIST_URL "https://blockchain.info/pl/multiaddr?active=1Kr6QSydW9bFQG1mXiPNNu6WpJGmUa9i1g"
-
+#define SEND_BTC_URL "http://127.0.0.1:3000/merchant/"+walletId+"/payment?password="+pass+"&to="+reciverAddr+"&amount="
 #include "httprequest.h"
 #include "btcaddress.h"
 
@@ -28,12 +28,13 @@ public:
     double getBalance();                            //returns wallet (from all addreses) ballance in satoshi
     QStringList getAddressList();                    //return addresses and balances string list
     QVector <BtcAddress*> addrList;                   //holds btc addresses
-
+    void sendBtc(QString reciverAddr, double ammount);              //func to send btc
 private:
 
     double balance;                     //holds wallet (All addresses) balance
     HttpRequest httpRequest;            //request to update addrest list and balance
     HttpRequest txRequest;              //request to update tx list
+    HttpRequest sendBtcRequest;         //request for sending btc's
     QJsonDocument jSonDocument;         //holds JSON reply from httpRequest
     QString walletId;                   //holds wallet id from constructor
     QString pass;                       // holds pass from constructor

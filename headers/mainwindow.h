@@ -7,6 +7,9 @@
 #include <QMainWindow>
 #include <QTimer>
 #include <QClipboard>
+#include <QSystemTrayIcon>
+#include <QAction>
+#include <QMenu>
 
 #include "wallet.h"
 #include "txmodel.h"
@@ -37,7 +40,8 @@ private:
     TxModel model;                                                  //model for displaying txs
     QVector<QLabel*> labelsTxs;                                     //holds pointers to lastTx labels
     QRCode* code = new QRCode(0, QSize(200, 200), this);
-
+    void createTrayIcon();
+    void closeEvent(QCloseEvent* event);
 private slots:
     void updateComboBal(QStringList AddrList, double wBalance);     //to updateBalance balance label and combobox
     void updateTx(QByteArray array);                                //to update tx table and last tx in dashboard
@@ -45,6 +49,8 @@ private slots:
     void enableSendButton();                                        //to enable sendbtc button
     void on_btcSendButton_clicked();                                //send button clicked
     void generateQrCode(int index);
+    void showHide(QSystemTrayIcon::ActivationReason reason);
+    void showHide();
 };
 
 #endif // MAINWINDOW_H

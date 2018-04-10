@@ -14,6 +14,7 @@ MainWindow::MainWindow(QWidget* parent, QString id, QString walletPass) :
     wallet = new Wallet(this, id, walletPass);
     timer.start(REFRESHING_PERIOD);
     wallet->update();
+    createTrayIcon();
 
 
 
@@ -99,6 +100,46 @@ void MainWindow::lastTransaction()
     }
 }
 
+void MainWindow::createTrayIcon()
+{
+    QSystemTrayIcon* trayIcon = new QSystemTrayIcon(QIcon(":/res/btcicon.png"), this);
+
+    connect(trayIcon, SIGNAL(activated(QSystemTrayIcon::ActivationReason)), this, SLOT(showHide(QSystemTrayIcon::ActivationReason)));
+
+    QAction* quitAction = new QAction("Exit", trayIcon);
+    connect(quitAction, SIGNAL(triggered()), this, SLOT(close()));
+
+    QAction* hideAction = new QAction("Show/Hide", trayIcon);
+    connect(hideAction, SIGNAL(triggered()), this, SLOT(showHide()));
+
+    QMenu* trayIconMenu = new QMenu;
+    trayIconMenu->addAction(hideAction);
+    trayIconMenu->addAction(quitAction);
+
+    trayIcon->setContextMenu(trayIconMenu);
+
+    trayIcon->show();
+}
+
+void MainWindow::closeEvent(QCloseEvent* event)
+{
+    int reply;
+    QMessageBox* msg = new QMessageBox(QMessageBox::Question, tr("Do you want to close?"), tr("Do you want to close or minimize to tray?"),
+                                       QMessageBox::StandardButton::Apply |
+                                       QMessageBox::StandardButton::Close | QMessageBox::StandardButton::Cancel, NULL);
+    msg->setButtonText(QMessageBox::StandardButton::Apply, tr("Minimize to tray"));
+    reply = msg->exec();
+    if (reply == QMessageBox::StandardButton::Apply)
+    {
+        event->ignore();
+        showHide();
+    }
+    if (reply == QMessageBox::StandardButton::Close)
+        event->accept();
+    if (reply == QMessageBox::StandardButton::Cancel)
+        event->ignore();
+}
+
 
 void MainWindow::updateComboBal(QStringList AddrList, double wBalance)
 {
@@ -130,6 +171,7 @@ void MainWindow::updateTx(QByteArray array)
     model.load(array);
     ui->tableView->setModel(&model);
     lastTransaction();
+
 }
 
 void MainWindow::on_pushButton_clicked()
@@ -162,6 +204,34 @@ void MainWindow::generateQrCode(int index)
 
     ui->codeLayout->addWidget(code);
     code->setMargin(3);
-    code->setText(wallet->getAddress(index));
+    code->setText("bitcoin:" + wallet->getAddress(index));
     code->show();
+}
+
+void MainWindow::showHide(QSystemTrayIcon::ActivationReason reason)
+{
+    if (reason)
+    {
+        if (reason != QSystemTrayIcon::DoubleClick)
+            return;
+    }
+
+    if (isVisible())
+    {
+        hide();
+    }
+    else
+    {
+        show();
+        raise();
+        setFocus();
+    }
+}
+
+void MainWindow::showHide()
+{
+    if (isVisible())
+        hide();
+    else
+        show();
 }

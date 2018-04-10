@@ -34,18 +34,18 @@ private:
     QString walletID;
     QString pass;
 
-    void rememberPass();
-    void loadLogin();
-    QString encrypt(QString data);
-    QString decrypt(QString data);
+    void rememberPass();                        //func to save login and pass in file
+    void loadLogin();                           //func to load login and pass from file
+    QString encrypt(QString data);              //func to encrypt login and pass
+    QString decrypt(QString data);              //func to decrypt login and pass
 
 
 private slots:
-    void updateTime();
-    void enableLoginButton();
-    void doLogin();
+    void updateTime();                          //slot to updating clock
+    void enableLoginButton();                   //slot to enable login button
+    void doLogin();                             //slot for logging
     void on_settingsButton_clicked();
-    void checkLogin();
+    void checkLogin();                          //check if login and pass is valid
 };
 
 #endif // LOGINWINDOW_H

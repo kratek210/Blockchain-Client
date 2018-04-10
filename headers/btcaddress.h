@@ -31,7 +31,7 @@ private:
 
 
 private slots:
-    void saveHttpReply(QByteArray data);       //compare balance with reply and emit signal if diffrent
+    void saveHttpReply(QByteArray data);            //compare balance with reply and emit signal if diffrent
 
 
 signals:

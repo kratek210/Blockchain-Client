@@ -12,7 +12,7 @@ class TxModel : public QStandardItemModel
 {
 public:
     TxModel();
-    void load(QByteArray dataArray);
+    void load(QByteArray dataArray);            //load byte array to parase json
 
 };
 

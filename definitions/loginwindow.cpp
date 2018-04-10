@@ -47,6 +47,7 @@ void LoginWindow::enableLoginButton()
 
 void LoginWindow::doLogin()
 {
+    ui->loginButton->setDisabled(true);
     walletID = ui->walletEdit->text();
     pass = ui->passEdit->text();
     httpRequest.setUrl(CHECK_LOGIN_URL);
@@ -56,6 +57,7 @@ void LoginWindow::doLogin()
 
 void LoginWindow::checkLogin()
 {
+
     if (httpRequest.getDataStr().contains("balance", Qt::CaseInsensitive))
     {
         rememberPass();
@@ -63,6 +65,8 @@ void LoginWindow::checkLogin()
         mainWindow->show();
         this->close();
     }
+
+    ui->loginButton->setEnabled(true);
 
 
 }

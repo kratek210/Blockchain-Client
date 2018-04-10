@@ -5,7 +5,6 @@ HttpRequest::HttpRequest()
     nManager = new QNetworkAccessManager;
     connect(nManager, SIGNAL(finished(QNetworkReply*)), this, SLOT(readReady(QNetworkReply*)));
     connect(this, SIGNAL(dataReadReady(QByteArray)), this, SLOT(setDataStr(QByteArray)));
-
 }
 
 void HttpRequest::send()

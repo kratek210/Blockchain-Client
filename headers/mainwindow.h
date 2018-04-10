@@ -8,9 +8,9 @@
 #include <QTimer>
 #include <QClipboard>
 
-
 #include "wallet.h"
 #include "txmodel.h"
+#include "QrQtcode.h"
 
 const int   REFRESHING_PERIOD = 30000;               //updating balance  in ms
 
@@ -32,17 +32,19 @@ private:
     QString pass;                                                   //wallet pass
     QString walletID;                                               //Blockchain wallet id
     QTimer timer;                                                   //to update data
-    Wallet* wallet;
+    Wallet* wallet;                                                 //pointer to wallet
     void lastTransaction();                                         //display last 10 txs in dashboard
     TxModel model;                                                  //model for displaying txs
-    QVector<QLabel*> labelsTxs;
-private slots:
-    void updateComboBoxList(QStringList AddrList, double wBalance); //to updateBalance label and combobox
-    void updateTx(QByteArray array);
-    void on_pushButton_clicked();
-    void enableSendButton();
+    QVector<QLabel*> labelsTxs;                                     //holds pointers to lastTx labels
+    QRCode* code = new QRCode(0, QSize(200, 200), this);
 
-    void on_btcSendButton_clicked();
+private slots:
+    void updateComboBal(QStringList AddrList, double wBalance);     //to updateBalance balance label and combobox
+    void updateTx(QByteArray array);                                //to update tx table and last tx in dashboard
+    void on_pushButton_clicked();
+    void enableSendButton();                                        //to enable sendbtc button
+    void on_btcSendButton_clicked();                                //send button clicked
+    void generateQrCode(int index);
 };
 
 #endif // MAINWINDOW_H

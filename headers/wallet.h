@@ -2,9 +2,10 @@
 #define WALLET_H
 
 #define CHECK_WALLET "http://127.0.0.1:3000/merchant/"+walletId+"/accounts?password="+pass
-//#define TX_LIST_URL "https://blockchain.info/pl/multiaddr?active="
-#define TX_LIST_URL "https://blockchain.info/pl/multiaddr?active=1Kr6QSydW9bFQG1mXiPNNu6WpJGmUa9i1g"
+#define TX_LIST_URL "https://blockchain.info/pl/multiaddr?active="
+//#define TX_LIST_URL "https://blockchain.info/pl/multiaddr?active=1Kr6QSydW9bFQG1mXiPNNu6WpJGmUa9i1g"
 #define SEND_BTC_URL "http://127.0.0.1:3000/merchant/"+walletId+"/payment?password="+pass+"&to="+reciverAddr+"&amount="
+
 #include "httprequest.h"
 #include "btcaddress.h"
 
@@ -25,12 +26,17 @@ class Wallet : public QObject
 
 public:
     explicit Wallet(QObject* parent, QString login, QString password);
-    double getBalance();                            //returns wallet (from all addreses) ballance in satoshi
-    QStringList getAddressList();                    //return addresses and balances string list
-    QVector <BtcAddress*> addrList;                   //holds btc addresses
-    void sendBtc(QString reciverAddr, double ammount);              //func to send btc
+
+
+    double getBalance();                                    //returns wallet (from all addreses) ballance in satoshi
+    QStringList getAddressList();                           //return addresses and balances string list
+    void sendBtc(QString reciverAddr, double ammount);      //func to send btc
+    QString getAddress(int index);                          //return address str at index
+
+
 private:
 
+    QVector <BtcAddress*> addrList;     //holds btc addresses
     double balance;                     //holds wallet (All addresses) balance
     HttpRequest httpRequest;            //request to update addrest list and balance
     HttpRequest txRequest;              //request to update tx list
@@ -44,9 +50,9 @@ private:
     void getTx();
 
 private slots:
-    void notify(QString btcAddress, double balance, double oldBalance);
-    void saveHttpReply(QByteArray data);
-    void saveTxList(QByteArray data);
+    void notify(QString btcAddress, double balance, double oldBalance);     //shows notify for new tx
+    void saveHttpReply(QByteArray data);                                    //save reply from address requests
+    void saveTxList(QByteArray data);                                       //save reply from txs request
 
 public slots:
     void update();                                                //update all addreses in address list
@@ -54,7 +60,7 @@ public slots:
 
 signals:
     void listUpdate(QStringList, double);      //signal to update addrlist and balance
-    void txListReady(QByteArray);
+    void txListReady(QByteArray);              //signal when tx list is ready to read
 };
 
 #endif // WALLET_H

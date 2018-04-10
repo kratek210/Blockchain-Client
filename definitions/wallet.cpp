@@ -34,7 +34,7 @@ void Wallet::getTx()
     {
         addresses += addrList.at(i)->getAddress() + "|";
     }
-    txRequest.setUrl(TX_LIST_URL);// + addresses);
+    txRequest.setUrl(TX_LIST_URL + addresses);
     txRequest.send();
 
 
@@ -62,7 +62,11 @@ void Wallet::sendBtc(QString reciverAddr, double ammount)
 
     sendBtcRequest.setUrl(SEND_BTC_URL + QString::number(ammount * SATOSHI_TO_BTC_RATIO));
     sendBtcRequest.send();
-    qDebug() << sendBtcRequest.getUrl().toString();
+}
+
+QString Wallet::getAddress(int index)
+{
+    return addrList.at(index)->getAddress();
 }
 
 

@@ -1,5 +1,6 @@
 #include "../headers/mainwindow.h"
 #include "ui_mainwindow.h"
+#include "../qrencode/qrencode.h"
 
 
 
@@ -9,17 +10,21 @@ MainWindow::MainWindow(QWidget* parent, QString id, QString walletPass) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    setWindowFlags(Qt::Window | Qt::WindowMinimizeButtonHint | Qt::WindowCloseButtonHint);
+    //setWindowFlags(Qt::Window | Qt::WindowMinimizeButtonHint | Qt::WindowCloseButtonHint);
     wallet = new Wallet(this, id, walletPass);
     timer.start(REFRESHING_PERIOD);
     wallet->update();
 
 
+
+
+
     connect(&timer, SIGNAL(timeout()), wallet, SLOT(update()));
-    connect(wallet, SIGNAL(listUpdate(QStringList, double)), this, SLOT(updateComboBoxList(QStringList, double)));
+    connect(wallet, SIGNAL(listUpdate(QStringList, double)), this, SLOT(updateComboBal(QStringList, double)));
     connect(wallet, SIGNAL(txListReady(QByteArray)), this, SLOT(updateTx(QByteArray)));
     connect(ui->sendAddrEdit, SIGNAL(textChanged(QString)), this, SLOT(enableSendButton()));
     connect(ui->doubleSpinBox, SIGNAL(valueChanged(double)), this, SLOT(enableSendButton()));
+    connect(ui->comboBox, SIGNAL(currentIndexChanged(int)), this, SLOT(generateQrCode(int)));
 
 
 }
@@ -95,7 +100,7 @@ void MainWindow::lastTransaction()
 }
 
 
-void MainWindow::updateComboBoxList(QStringList AddrList, double wBalance)
+void MainWindow::updateComboBal(QStringList AddrList, double wBalance)
 {
     QStringList temp;
     for (int i = 0; i < ui->comboBox->count(); i++)
@@ -132,7 +137,7 @@ void MainWindow::on_pushButton_clicked()
     QString addr;
     int index;
     index = ui->comboBox->currentIndex();
-    addr = wallet->addrList.at(index)->getAddress();
+    addr = wallet->getAddress(index);
     QClipboard* temp = QApplication::clipboard();
     temp->setText(addr, QClipboard::Clipboard);
 
@@ -150,4 +155,13 @@ void MainWindow::enableSendButton()
 void MainWindow::on_btcSendButton_clicked()
 {
     wallet->sendBtc(ui->sendAddrEdit->text(), ui->doubleSpinBox->value());
+}
+
+void MainWindow::generateQrCode(int index)
+{
+
+    ui->codeLayout->addWidget(code);
+    code->setMargin(3);
+    code->setText(wallet->getAddress(index));
+    code->show();
 }

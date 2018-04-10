@@ -137,7 +137,11 @@ void MainWindow::closeEvent(QCloseEvent* event)
     if (reply == QMessageBox::StandardButton::Close)
         event->accept();
     if (reply == QMessageBox::StandardButton::Cancel)
+    {
         event->ignore();
+        show();
+    }
+
 }
 
 

@@ -14,10 +14,6 @@ Wallet::Wallet(QObject* parent, QString login, QString password) : QObject(paren
     newTxNotify.setContextMenu(NULL);
     getTx();
 
-    newTxNotify.show();
-    newTxNotify.showMessage(tr("New Transaction"), tr("New transaction on address: ")
-                            , QSystemTrayIcon::Information, 5000);
-    newTxNotify.hide();
 
 
 

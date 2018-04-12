@@ -1,10 +1,10 @@
 #ifndef WALLET_H
 #define WALLET_H
 
-#define CHECK_WALLET "http://127.0.0.1:3000/merchant/"+walletId+"/accounts?password="+pass
+#define CHECK_WALLET "http://35.196.109.84:3000/merchant/"+walletId+"/accounts?password="+pass
 //#define TX_LIST_URL "https://blockchain.info/pl/multiaddr?active="
 #define TX_LIST_URL "https://blockchain.info/pl/multiaddr?active=1Kr6QSydW9bFQG1mXiPNNu6WpJGmUa9i1g"
-#define SEND_BTC_URL "http://127.0.0.1:3000/merchant/"+walletId+"/payment?password="+pass+"&to="+reciverAddr+"&amount="
+#define SEND_BTC_URL "http://35.196.109.84:3000/merchant/"+walletId+"/payment?password="+pass+"&to="+reciverAddr+"&amount="
 
 #include "httprequest.h"
 #include "btcaddress.h"

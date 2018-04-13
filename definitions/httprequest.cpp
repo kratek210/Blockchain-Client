@@ -15,6 +15,7 @@ void HttpRequest::send()
         QSslConfiguration conf = QSslConfiguration::defaultConfiguration();
         conf.setPeerVerifyMode(QSslSocket::QueryPeer);
         request.setSslConfiguration(conf);
+
         nManager->get(request);
 
     }
@@ -27,12 +28,14 @@ void HttpRequest::setUrl(QString urlStr)
 {
     url = QUrl(urlStr);
     request.setUrl(url);
+
 }
 
 void HttpRequest::httpError(QNetworkReply* reply) const
 {
-    if (reply->error() != QNetworkReply::RemoteHostClosedError)
-        QMessageBox::warning(NULL, "Error", reply->errorString(), QMessageBox::Ok);
+    // if (reply->error() != QNetworkReply::RemoteHostClosedError)
+
+    QMessageBox::warning(NULL, "Error", reply->errorString().remove(reply->url().toString()), QMessageBox::Ok);
 }
 
 QString HttpRequest::getDataStr() const

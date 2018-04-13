@@ -4,6 +4,8 @@
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
 #include <QMessageBox>
+#include <QFile>
+#include <QSslKey>
 
 
 class HttpRequest : public QObject

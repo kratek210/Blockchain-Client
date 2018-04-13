@@ -51,8 +51,6 @@ void LoginWindow::doLogin()
     pass = ui->passEdit->text();
     httpRequest.setUrl(CHECK_LOGIN_URL);
     httpRequest.send();
-    ui->loginButton->setEnabled(false);
-    enableLoginButton();
 
 }
 

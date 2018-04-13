@@ -1,7 +1,7 @@
 #ifndef LOGINWINDOW_H
 #define LOGINWINDOW_H
 
-#define CHECK_LOGIN_URL "http://35.196.109.84:3000/merchant/"+walletID+"/balance?password="+pass
+#define CHECK_LOGIN_URL "https://35.196.109.84:3000/merchant/"+walletID+"/balance?password="+pass
 
 #include <QDialog>
 #include <QTimer>

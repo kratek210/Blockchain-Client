@@ -12,7 +12,9 @@ void HttpRequest::send()
     if (request.url().toString(QUrl::None).contains("https", Qt::CaseInsensitive))
     {
 
-        request.setSslConfiguration(QSslConfiguration::defaultConfiguration());
+        QSslConfiguration conf = QSslConfiguration::defaultConfiguration();
+        conf.setPeerVerifyMode(QSslSocket::QueryPeer);
+        request.setSslConfiguration(conf);
         nManager->get(request);
 
     }
@@ -29,7 +31,8 @@ void HttpRequest::setUrl(QString urlStr)
 
 void HttpRequest::httpError(QNetworkReply* reply) const
 {
-    QMessageBox::warning(NULL, "Error", reply->errorString(), QMessageBox::Ok);
+    if (reply->error() != QNetworkReply::RemoteHostClosedError)
+        QMessageBox::warning(NULL, "Error", reply->errorString(), QMessageBox::Ok);
 }
 
 QString HttpRequest::getDataStr() const

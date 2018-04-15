@@ -210,11 +210,14 @@ background-color: rgb(35, 35, 35);
        </item>
        <item>
         <widget class="QSpinBox" name="txBox">
+         <property name="minimum">
+          <number>1</number>
+         </property>
          <property name="maximum">
           <number>7</number>
          </property>
          <property name="value">
-          <number>0</number>
+          <number>5</number>
          </property>
         </widget>
        </item>

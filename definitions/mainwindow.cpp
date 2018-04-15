@@ -43,6 +43,9 @@ MainWindow::~MainWindow()
 
 void MainWindow::lastTransaction()
 {
+    QSettings* settings = new QSettings("kratek", "blockchain", this);
+    if (settings->value("MAX_TX_LIMIT").isNull())
+        settings->setValue("MAX_TX_LIMIT", 5);
     QStringList tempList;
     if (!labelsTxs.isEmpty())
     {

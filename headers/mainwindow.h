@@ -1,7 +1,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#define LAST_TX_LIMIT 6
+#define LAST_TX_LIMIT settings->value("MAX_TX_LIMIT").toInt()
 
 
 #include <QMainWindow>

@@ -9,8 +9,21 @@ Wallet::Wallet(QObject* parent, QString login, QString password) : QObject(paren
     balance = 0;       //to avoid some crazy numbers from memory
     walletId = login;
     pass = password;
-    httpRequest.setUrl(CHECK_WALLET);
-    httpRequest.send();
+    QSettings* settings = new QSettings("kratek", "blockchain", this);
+
+    if (settings->value("HOST").toString().isEmpty() || settings->value("PORT").isNull())
+    {
+        httpRequest.setUrl(CHECK_WALLET);
+        httpRequest.send();
+    }
+    else
+    {
+        httpRequest.setUrl(settings->value("HOST").toString() + ":" + settings->value("PORT").toString() +
+                           "/merchant/" + walletId + "/accounts?password=" + pass);
+        httpRequest.send();
+    }
+
+
     newTxNotify.setContextMenu(NULL);
     getTx();
 
@@ -34,6 +47,8 @@ void Wallet::getTx()
     {
         addresses += addrList.at(i)->getAddress() + "|";
     }
+
+
     txRequest.setUrl(TX_LIST_URL + addresses);
     txRequest.send();
 
@@ -59,9 +74,20 @@ QStringList Wallet::getAddressList()
 
 void Wallet::sendBtc(QString reciverAddr, double ammount)
 {
+    QSettings* settings = new QSettings("kratek", "blockchain", this);
 
-    sendBtcRequest.setUrl(SEND_BTC_URL + QString::number(ammount * SATOSHI_TO_BTC_RATIO));
-    sendBtcRequest.send();
+    if (settings->value("HOST").toString().isEmpty() || settings->value("PORT").isNull())
+    {
+        httpRequest.setUrl(SEND_BTC_URL + QString::number(ammount * SATOSHI_TO_BTC_RATIO));
+        httpRequest.send();
+    }
+    else
+    {
+        httpRequest.setUrl(settings->value("HOST").toString() + ":" + settings->value("PORT").toString() +
+                           "/merchant/" + walletId + "/payment?password=" + pass + "&to=" + reciverAddr + "&amount=" +
+                           QString::number(ammount * SATOSHI_TO_BTC_RATIO));
+        httpRequest.send();
+    }
 }
 
 QString Wallet::getAddress(int index)
@@ -72,9 +98,19 @@ QString Wallet::getAddress(int index)
 
 void Wallet::update()
 {
-    if (httpRequest.getUrl() != QUrl(CHECK_WALLET).toString())
+    QSettings* settings = new QSettings("kratek", "blockchain", this);
+
+    if (settings->value("HOST").toString().isEmpty() || settings->value("PORT").isNull())
+    {
         httpRequest.setUrl(CHECK_WALLET);
-    httpRequest.send();
+        httpRequest.send();
+    }
+    else
+    {
+        httpRequest.setUrl(settings->value("HOST").toString() + ":" + settings->value("PORT").toString() +
+                           "/merchant/" + walletId + "/accounts?password=" + pass);
+        httpRequest.send();
+    }
     if (!addrList.isEmpty())
     {
         for (int i = 0; i < addrList.size() - 1; i++)

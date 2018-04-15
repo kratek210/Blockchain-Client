@@ -6,10 +6,11 @@
 #include <QDialog>
 #include <QTimer>
 #include <QDateTime>
-#include <QFile>
+#include <QSettings>
 
 #include "httprequest.h"
 #include "mainwindow.h"
+#include "settingswindow.h"
 
 const int MIN_SIGNS = 4;           //minimum signs amount in login and pass fields
 
@@ -33,11 +34,16 @@ private:
     QFile loginFile;
     QString walletID;
     QString pass;
-
+    QString host;
+    settingsWindow settingsWnd;
+    int port;
+    int refreshPeriod;
+    int maxTx;
     void rememberPass();                        //func to save login and pass in file
     void loadLogin();                           //func to load login and pass from file
     QString encrypt(QString data);              //func to encrypt login and pass
     QString decrypt(QString data);              //func to decrypt login and pass
+
 
 
 private slots:

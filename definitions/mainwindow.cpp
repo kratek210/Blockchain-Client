@@ -10,9 +10,15 @@ MainWindow::MainWindow(QWidget* parent, QString id, QString walletPass) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    QSettings* settings = new QSettings("kratek", "blockchain", this);
     //setWindowFlags(Qt::Window | Qt::WindowMinimizeButtonHint | Qt::WindowCloseButtonHint);
     wallet = new Wallet(this, id, walletPass);
-    timer.start(REFRESHING_PERIOD);
+
+    if (settings->value("REFRESH").isNull())
+        timer.start(REFRESHING_PERIOD);
+    else
+        timer.start(settings->value("REFRESH").toInt() * 1000);
+
     wallet->update();
     createTrayIcon();
 
@@ -135,7 +141,10 @@ void MainWindow::closeEvent(QCloseEvent* event)
         showHide();
     }
     if (reply == QMessageBox::StandardButton::Close)
+    {
         event->accept();
+
+    }
     if (reply == QMessageBox::StandardButton::Cancel)
     {
         event->ignore();

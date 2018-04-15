@@ -25,6 +25,7 @@ LoginWindow::LoginWindow(QWidget* parent) :
     /*-----------------------------------------------------------------------------------------*/
 
     loadLogin();
+
 }
 
 LoginWindow::~LoginWindow()
@@ -49,8 +50,18 @@ void LoginWindow::doLogin()
 {
     walletID = ui->walletEdit->text();
     pass = ui->passEdit->text();
-    httpRequest.setUrl(CHECK_LOGIN_URL);
-    httpRequest.send();
+    QSettings* settings = new QSettings("kratek", "blockchain", this);
+    if (settings->value("HOST").toString().isEmpty() || settings->value("PORT").isNull())
+    {
+        httpRequest.setUrl(CHECK_LOGIN_URL);
+        httpRequest.send();
+    }
+    else
+    {
+        httpRequest.setUrl(settings->value("HOST").toString() + ":" + settings->value("PORT").toString() +
+                           "/merchant/" + walletID + "/balance?password=" + pass);
+        httpRequest.send();
+    }
 
 }
 
@@ -145,13 +156,10 @@ QString LoginWindow::decrypt(QString data)
 }
 
 
+
 void LoginWindow::on_settingsButton_clicked()
 {
-    QMessageBox::information(NULL, tr("Information"), tr("Not implemented yet. "
-                                                         "Here will be posible "
-                                                         "to change port number "
-                                                         "of local service if user "
-                                                         "starts Blockchain Api server on diffrent "
-                                                         "port. Refreshing period. unit mBTC BTC etc."), QMessageBox::Ok);
+    settingsWindow* settingsWnd = new settingsWindow(this);
+    settingsWnd->show();
 }
 

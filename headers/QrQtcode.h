@@ -33,7 +33,7 @@ public:
 
     QRCode(const QByteArray& text, const QSize& size, QWidget* parent = NULL): QWidget(parent) {
         if (text.length() == 0) {
-            this->text = QByteArray("http://github.com/chinat");
+            this->text = QByteArray("http://github.com/kratek210");
         }
         else {
             this->text = text;

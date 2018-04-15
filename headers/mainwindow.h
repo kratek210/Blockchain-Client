@@ -10,6 +10,7 @@
 #include <QSystemTrayIcon>
 #include <QAction>
 #include <QMenu>
+#include <QSettings>
 
 #include "wallet.h"
 #include "txmodel.h"
@@ -36,12 +37,13 @@ private:
     QString walletID;                                               //Blockchain wallet id
     QTimer timer;                                                   //to update data
     Wallet* wallet;                                                 //pointer to wallet
-    void lastTransaction();                                         //display last 10 txs in dashboard
     TxModel model;                                                  //model for displaying txs
     QVector<QLabel*> labelsTxs;                                     //holds pointers to lastTx labels
     QRCode* code = new QRCode(0, QSize(200, 200), this);
     void createTrayIcon();
     void closeEvent(QCloseEvent* event);
+    void lastTransaction();                                         //display last TX_LIMIT txs in dashboard
+
 private slots:
     void updateComboBal(QStringList AddrList, double wBalance);     //to updateBalance balance label and combobox
     void updateTx(QByteArray array);                                //to update tx table and last tx in dashboard

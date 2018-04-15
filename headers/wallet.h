@@ -15,7 +15,7 @@
 #include <QJsonArray>
 #include <QSystemTrayIcon>
 #include <QJsonValue>
-
+#include <QSettings>
 
 const int SATOSHI_TO_BTC_RATIO = 100000000;
 

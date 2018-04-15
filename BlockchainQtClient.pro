@@ -30,6 +30,7 @@ SOURCES += \
     definitions/wallet.cpp \
     definitions/btcaddress.cpp \
     definitions/txmodel.cpp \
+    definitions/settingswindow.cpp \
     qrencode/bitstream.c \
     qrencode/mask.c \
     qrencode/mmask.c \
@@ -49,6 +50,7 @@ HEADERS += \
     headers/txmodel.h \
     headers/wallet.h \
     headers/btcaddress.h \
+    headers/settingswindow.h \
     qrencode/bitstream.h \
     qrencode/config.h \
     qrencode/mask.h \
@@ -59,11 +61,13 @@ HEADERS += \
     qrencode/qrinput.h \
     qrencode/qrspec.h \
     qrencode/rscode.h \
-    qrencode/split.h
+    qrencode/split.h \
+    headers/settingswindow.h
 
 FORMS += \
         forms\loginwindow.ui \
-    forms\mainwindow.ui
+    forms\mainwindow.ui \
+    forms/settingswindow.ui
 
 RESOURCES += \
     resources.qrc

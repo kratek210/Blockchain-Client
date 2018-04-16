@@ -136,19 +136,20 @@ void MainWindow::closeEvent(QCloseEvent* event)
     QMessageBox* msg = new QMessageBox(QMessageBox::Question, tr("Do you want to close?"), tr("Do you want to close or minimize to tray?"),
                                        QMessageBox::StandardButton::Apply |
                                        QMessageBox::StandardButton::Close | QMessageBox::StandardButton::Cancel, NULL);
-    msg->setButtonText(QMessageBox::StandardButton::Apply, tr("Minimize to tray"));
+    msg->setButtonText(QMessageBox::Apply, tr("Minimize to tray"));
     reply = msg->exec();
-    if (reply == QMessageBox::StandardButton::Apply)
+    if (reply == QMessageBox::Apply)
     {
         event->ignore();
         showHide();
     }
-    if (reply == QMessageBox::StandardButton::Close)
+
+    if (reply == QMessageBox::Close)
     {
         event->accept();
 
     }
-    if (reply == QMessageBox::StandardButton::Cancel)
+    if (reply == QMessageBox::Cancel)
     {
         event->ignore();
         show();

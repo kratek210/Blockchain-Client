@@ -93,6 +93,9 @@ background-color: rgb(35, 35, 35);
          <property name="alignment">
           <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
          </property>
+         <property name="placeholderText">
+          <string>Leave empty for default server</string>
+         </property>
         </widget>
        </item>
       </layout>
